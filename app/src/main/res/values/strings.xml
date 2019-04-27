@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Enviramend</string>
+    <string name="VISION_RETURN">VISIONRETURN</string>
 </resources>

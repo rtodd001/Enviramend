@@ -21,8 +21,8 @@
         app:layout_constraintTop_toTopOf="parent" />
 
 
-   <!-- <ImageView
-        android:id="@+id/imageView"
+    <TextView
+        android:id="@+id/textView"
         android:layout_width="match_parent"
         android:layout_height="fill_parent"
         android:layout_marginStart="8dp"
@@ -30,7 +30,8 @@
         android:layout_weight="9"
         app:layout_constraintBottom_toBottomOf="@+id/scanBtn"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/scanBtn"
-        app:srcCompat="@android:color/holo_green_light" />-->
+        app:layout_constraintVertical_bias="0.824" />
 </android.support.constraint.ConstraintLayout>
