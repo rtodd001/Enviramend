@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "679099925985",
+    "firebase_url": "https://enviramend-2019.firebaseio.com",
+    "project_id": "enviramend-2019",
+    "storage_bucket": "enviramend-2019.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:679099925985:android:a671b3fd5d161e36",
+        "android_client_info": {
+          "package_name": "Citrus.enviramend"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "679099925985-ldh4qlc735n9jrm842fggv0r5b7se4iu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAWIktw7wi7GbLSUz5lanlKwmSTPVk1anU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "679099925985-ldh4qlc735n9jrm842fggv0r5b7se4iu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
