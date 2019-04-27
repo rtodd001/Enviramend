@@ -1,5 +1,6 @@
 package Citrus.enviramend;;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -13,6 +14,9 @@ import Citrus.enviramend.R;
 
 public class MainActivity extends AppCompatActivity {
 
+    private static final int REQUEST_PERMISSION = 10; //not too sure why this is 10 so be careful
+    private static final int INTENT_CODE = 34932;
+
     ImageView imageView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,16 +29,18 @@ public class MainActivity extends AppCompatActivity {
         scanBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                startActivityForResult(intent,0);
+                Intent intent = new Intent(MainActivity.this, BarcodeScan.class);
+                startActivityForResult(intent,INTENT_CODE);
             }
         });
     }
 
-    @Override
-    public void onActivityReenter(int resultCode, Intent data) {
-        super.onActivityReenter(resultCode, data);
-        Bitmap bitmap = (Bitmap)data.getExtras().get("data");
-        imageView.setImageBitmap(bitmap);
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(requestCode == INTENT_CODE){
+            if(resultCode == Activity.RESULT_OK){
+                //figure out what gets returned
+                //start an intent for the USDA API
+            }
+        }
     }
 }
