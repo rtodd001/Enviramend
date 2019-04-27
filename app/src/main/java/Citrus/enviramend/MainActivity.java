@@ -1,4 +1,4 @@
-package Citrus.enviramend;;
+package Citrus.enviramend;
 
 import android.app.Activity;
 import android.content.Intent;
