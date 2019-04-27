@@ -9,20 +9,28 @@
 
     <Button
         android:id="@+id/scanBtn"
-        android:layout_weight="1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_weight="1"
         android:text="scan Button"
-        tools:layout_editor_absoluteX="140dp"
-        tools:layout_editor_absoluteY="329dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
-    <ImageView
+   <!-- <ImageView
         android:id="@+id/imageView"
-        android:layout_weight="9"
         android:layout_width="match_parent"
         android:layout_height="fill_parent"
-        app:srcCompat="@android:color/holo_green_light"
-        tools:layout_editor_absoluteX="125dp"
-        tools:layout_editor_absoluteY="192dp" />
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_weight="9"
+        app:layout_constraintBottom_toBottomOf="@+id/scanBtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/scanBtn"
+        app:srcCompat="@android:color/holo_green_light" />-->
 </android.support.constraint.ConstraintLayout>

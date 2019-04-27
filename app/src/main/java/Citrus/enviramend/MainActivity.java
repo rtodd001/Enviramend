@@ -1,4 +1,4 @@
-package com.example.myfirstapp;
+package Citrus.enviramend;;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -9,6 +9,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import Citrus.enviramend.R;
+
 public class MainActivity extends AppCompatActivity {
 
     ImageView imageView;
@@ -18,8 +20,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         //creates button scanBtn, use findVewById to get a result and we cast it by (Button)
-        Button scanBtn = (Button) findViewById(R.id.scanBtn);
-        ImageView imageView = (ImageView)findViewById(R.id.imageView);
+        Button scanBtn =  findViewById(R.id.scanBtn);
+        //ImageView imageView = (ImageView)findViewById(R.id.imageView);
         scanBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
