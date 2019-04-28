@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Vector;
 
 import Citrus.enviramend.R;
 
@@ -26,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
     private static final int REQUEST_PERMISSION = 10; //not too sure why this is 10 so be careful
     private static final int INTENT_CODE = 34932;
     private static final int VISION_CODE = 11111;
+    private static final int BARCODE_INTENT = 2222;
     private static int INGREDIENT_CODE = 1234;
     private TextView textView;
     private Map<String, String> badForEnvironment = new HashMap<>();
@@ -33,15 +35,25 @@ public class MainActivity extends AppCompatActivity {
 
 
     private String[] split(String input){
+        Log.e("Split",input);
         input = input.toLowerCase();
         String[] output;
-        input = input.substring(input.indexOf(':'));
         output = input.split("[:,()]");
         for(int i = 0; i < output.length; i++){
             output[i] = output[i].trim();
         }
         return output;
     }
+    /*private Vector<String> splat(String input){
+        input = input.toLowerCase();
+        Vector<String> output = new Vector<>();
+        input = input.substring(input.indexOf(':'));
+        output = input.split("[:,()]");
+        for(int i = 0; i < output.length; i++){
+            output[i] = output[i].trim();
+        }
+        return output;
+    }*/
 
 
     @Override
@@ -61,14 +73,14 @@ public class MainActivity extends AppCompatActivity {
         badForEnvironment.put("almond milk", "Growing almonds requires a lot of water.");
         badForEnvironment.put("soybeans", "In Brazil, the area of forest cleared for soybean plantations is responsible for the release of over 473 million tons of carbon dioxide.");
         badForEnvironment.put("chocolate", "Cacao plantations are responsible for huge amounts of deforestation.");
-        badForEnvironment.put("sugar", "According to the World Wildlife Fund, sugar cane production has caused a greater loss of biodiversity than any other crop on the planet.");
+        //badForEnvironment.put("sugar", "According to the World Wildlife Fund, sugar cane production has caused a greater loss of biodiversity than any other crop on the planet.");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         textView = findViewById(R.id.TextView);
         //creates button scanBtn, use findVewById to get a result and we cast it by (Button)
-        ImageButton scanBtn =  (ImageButton) findViewById(R.id.scanBtn);
-        ImageButton imageButton =  (ImageButton) findViewById(R.id.imageButton);
+        ImageButton scanBtn =  (ImageButton) findViewById(R.id.uploadImage);
+        ImageButton barBtn =  (ImageButton) findViewById(R.id.barcodeBtn);
 
         //ImageView imageView = (ImageView)findViewById(R.id.imageView);
         scanBtn.setOnClickListener(new View.OnClickListener() {
@@ -76,6 +88,15 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, VisionActivity.class);
                 startActivityForResult(intent,VISION_CODE);
+                //Intent intent = new Intent(MainActivity.this, BarcodeScan.class);
+                //startActivityForResult(intent,INTENT_CODE);
+            }
+        });
+        barBtn.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, BarcodeScan.class);
+                startActivityForResult(intent,BARCODE_INTENT);
             }
         });
     }
@@ -86,23 +107,39 @@ public class MainActivity extends AppCompatActivity {
             if(resultCode == Activity.RESULT_OK){
                 //figure out what gets returned
                 String text = data.getStringExtra(this.getResources().getString(R.string.VISION_RETURN));
-                Toast.makeText(getApplicationContext(),"In main: " + text, Toast.LENGTH_LONG).show();
+                Log.e("MainActivity", "IN VISION_INTENT");
+                //Toast.makeText(getApplicationContext(),"In main: " + text, Toast.LENGTH_LONG).show();
                 textView.setText("Result is " + text);
                 Intent intent = new Intent(MainActivity.this, IngredientActivity.class);
                 intent.putExtra(getResources().getString(R.string.Bundle_Start_Ingredient),text);
                 startActivityForResult(intent,INGREDIENT_CODE);
             }
         }
+        else if(requestCode == BARCODE_INTENT){
+            if(resultCode == Activity.RESULT_OK){
+                String text = data.getStringExtra(this.getResources().getString(R.string.BARCODE_RETURN));
+                //Toast.makeText(getApplicationContext(),"In main: " + text, Toast.LENGTH_LONG).show();
+                Log.e("MainActivity", "IN BARCODE_INTENT");
+                //textView.setText("Result is " + text);
+                Intent intent = new Intent(MainActivity.this, IngredientActivity.class);
+                intent.putExtra(getResources().getString(R.string.Bundle_Start_Ingredient),text);
+                startActivityForResult(intent,INGREDIENT_CODE);
+            }
+            else {
+                Toast.makeText(getApplicationContext(),"Failed to return from Barcode", Toast.LENGTH_LONG).show();
+            }
+        }
         else if(requestCode == INGREDIENT_CODE){
             if(resultCode == Activity.RESULT_OK){
                 String ing = data.getStringExtra(getResources().getString(R.string.Ingredient_Intent_Return));
+                Log.e("MainActivity", "IN INGREDIENT_INTENT");
                 textView.setText(ing);
                 String output = "";
                 String[] splitString = split(ing);
                 for(String item : splitString){
                     if(badForEnvironment.containsKey(item)) {
 
-                        output = output + '-' + (badForEnvironment.get(item) + "\n");
+                        output =  '-' + (badForEnvironment.get(item) + "\n") + output;
                     }
                 }
                 if(output == ""){
