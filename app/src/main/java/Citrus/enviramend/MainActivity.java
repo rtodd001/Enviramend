@@ -6,13 +6,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
     EditText text;
-    private static int INGREDIENT_CODE = 123456;
+    private static int INGREDIENT_CODE = 1234;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,11 +22,8 @@ public class MainActivity extends AppCompatActivity {
         scanBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(MainActivity.this, "Button Clicked!", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(MainActivity.this, IngredientActivity.class);
-                Toast.makeText(MainActivity.this, "Button Clicked!", Toast.LENGTH_SHORT).show();
-                intent.putExtra(getResources().getString(R.string.Bundle_Start_Ingredient), text.getText().toString());
-                Toast.makeText(MainActivity.this, "Button Clicked!", Toast.LENGTH_SHORT).show();
+                intent.putExtra(getResources().getString(R.string.Bundle_Start_Ingredient),"nuTeLla");
                 startActivityForResult(intent,INGREDIENT_CODE);
             }
         });

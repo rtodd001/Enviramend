@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.content.Intent;
 import android.app.Activity;
+import android.util.Log;
 import android.widget.Toast;
 
 import org.json.JSONArray;
@@ -29,22 +30,29 @@ public class IngredientActivity extends AppCompatActivity {
         setContentView(R.layout.activity_ingredient);
 
         Intent intent = getIntent();
-        Bundle bundle = intent.getBundleExtra(getResources().getString(R.string.Bundle_Start_Ingredient));
-        String query = bundle.getString(getResources().getString(R.string.Ingredient_Intent_Call));
+        //Bundle bundle = intent.getBundleExtra(getResources().getString(R.string.Bundle_Start_Ingredient));
+        //String query = bundle.getString(getResources().getString(R.string.Ingredient_Intent_Call));
+        String query = intent.getStringExtra(getResources().getString(R.string.Bundle_Start_Ingredient));
         APICall(query);
     }
 
     public void APICall(String query){
         final Intent returnIntent = new Intent();
         final Bundle returnBundle= new Bundle();
-        String url = getResources().getString(R.string.query_url) + query + "&" + getResources().getString(R.string.api_key) ;
+        final RequestQueue queue = Volley.newRequestQueue(this);
+        String url = getResources().getString(R.string.query_url) + query + "&" + getResources().getString(R.string.api_key);
+        if(url == ""){
+            Log.e("MyActivity", "Empty url!");
+        }
+        else {
+            Log.e("MyActivity", url);
+        }
         JsonObjectRequest apiReturn = new JsonObjectRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
                         try {
-                            JSONObject mainObject = response.getJSONObject("main");
-                            JSONObject list = mainObject.getJSONObject("list");
+                            JSONObject list = response.getJSONObject("list");
                             JSONArray item = list.getJSONArray("item");
                             JSONObject firstItem = item.getJSONObject(0);
                             String ndbno = firstItem.getString("ndbno");
@@ -54,13 +62,12 @@ public class IngredientActivity extends AppCompatActivity {
                                         @Override
                                         public void onResponse(JSONObject response) {
                                             try {
-                                                JSONObject mainObject = response.getJSONObject("main");
-                                                JSONArray foods = mainObject.getJSONArray("foods");
+                                                JSONArray foods = response.getJSONArray("foods");
                                                 JSONObject firstFood = foods.getJSONObject(0);
                                                 JSONObject food = firstFood.getJSONObject("food");
                                                 JSONObject ing = food.getJSONObject("ing");
                                                 String desc = ing.getString("desc");
-                                                Toast.makeText(IngredientActivity.this, desc, Toast.LENGTH_SHORT).show();
+                                                Toast.makeText(IngredientActivity.this, desc, Toast.LENGTH_LONG).show();
                                                 returnBundle.putString(getResources().getString(R.string.Ingredient_Intent_Return), desc);
                                                 setResult(Activity.RESULT_OK, returnIntent);
                                                 finish();
@@ -76,6 +83,7 @@ public class IngredientActivity extends AppCompatActivity {
                                             finish();
                                         }
                                     });
+                            queue.add(apiReturn);
                         }catch (JSONException e){
                             e.printStackTrace();
                         }
@@ -88,7 +96,6 @@ public class IngredientActivity extends AppCompatActivity {
                         finish();
                     }
                 });
-        RequestQueue queue = Volley.newRequestQueue(this);
         queue.add(apiReturn);
     }
 }
