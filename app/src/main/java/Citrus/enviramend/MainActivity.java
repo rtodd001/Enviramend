@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -63,9 +64,12 @@ public class MainActivity extends AppCompatActivity {
         badForEnvironment.put("sugar", "According to the World Wildlife Fund, sugar cane production has caused a greater loss of biodiversity than any other crop on the planet.");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         textView = findViewById(R.id.TextView);
         //creates button scanBtn, use findVewById to get a result and we cast it by (Button)
-        Button scanBtn =  findViewById(R.id.scanBtn);
+        ImageButton scanBtn =  (ImageButton) findViewById(R.id.scanBtn);
+        ImageButton imageButton =  (ImageButton) findViewById(R.id.imageButton);
+
         //ImageView imageView = (ImageView)findViewById(R.id.imageView);
         scanBtn.setOnClickListener(new View.OnClickListener() {
             @Override
