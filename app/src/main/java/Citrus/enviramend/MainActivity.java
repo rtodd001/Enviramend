@@ -77,8 +77,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         textView = findViewById(R.id.TextView);
         //creates button scanBtn, use findVewById to get a result and we cast it by (Button)
-        Button scanBtn =  findViewById(R.id.scanBtn);
         Button barBtn = findViewById(R.id.barcodeBtn);
+        Button scanBtn =  findViewById(R.id.uploadImage);
         //ImageView imageView = (ImageView)findViewById(R.id.imageView);
         scanBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -136,7 +136,7 @@ public class MainActivity extends AppCompatActivity {
                 for(String item : splitString){
                     if(badForEnvironment.containsKey(item)) {
 
-                        output = output + '-' + (badForEnvironment.get(item) + "\n");
+                        output =  '-' + (badForEnvironment.get(item) + "\n") + output;
                     }
                 }
                 if(output == ""){
