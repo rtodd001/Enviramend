@@ -16,7 +16,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 import java.util.Vector;
 
 import Citrus.enviramend.R;
@@ -28,10 +30,11 @@ public class MainActivity extends AppCompatActivity {
     private static final int INTENT_CODE = 34932;
     private static final int VISION_CODE = 11111;
     private static final int BARCODE_INTENT = 2222;
-    private static int INGREDIENT_CODE = 1234;
+    private static final int ALLERGY_INTENT = 3333;
+    private static int INGREDIENT_CODE = 4444;
     private TextView textView;
     private Map<String, String> badForEnvironment = new HashMap<>();
-
+    private Set<String> allergyList = new HashSet<>();
 
 
     private String[] split(String input){
@@ -79,8 +82,11 @@ public class MainActivity extends AppCompatActivity {
 
         textView = findViewById(R.id.TextView);
         //creates button scanBtn, use findVewById to get a result and we cast it by (Button)
+
         ImageButton scanBtn =  (ImageButton) findViewById(R.id.uploadImage);
         ImageButton barBtn =  (ImageButton) findViewById(R.id.barcodeBtn);
+
+        ImageButton allergyBtn = findViewById(R.id.allergy);
 
         //ImageView imageView = (ImageView)findViewById(R.id.imageView);
         scanBtn.setOnClickListener(new View.OnClickListener() {
@@ -97,6 +103,13 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, BarcodeCamera.class);
                 startActivityForResult(intent,BARCODE_INTENT);
+            }
+        });
+        allergyBtn.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, Allergy.class);
+                startActivityForResult(intent,ALLERGY_INTENT);
             }
         });
     }
@@ -129,6 +142,22 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(),"Failed to return from Barcode", Toast.LENGTH_LONG).show();
             }
         }
+        else if(requestCode == ALLERGY_INTENT){
+            if(resultCode == Activity.RESULT_OK){
+                String text = data.getStringExtra(this.getResources().getString(R.string.Allergy_Intent_Return));
+                //Toast.makeText(getApplicationContext(),"In main: " + text, Toast.LENGTH_LONG).show();
+                Log.e("MainActivity", "IN ALLERGY_INTENT");
+                //textView.setText("Result is " + text);
+                String[] textByLine = text.split("\n");
+                allergyList = new HashSet<>();
+                for(String item: textByLine){
+                    allergyList.add(item.toLowerCase());
+                }
+            }
+            else {
+                Toast.makeText(getApplicationContext(),"Failed to return from Barcode", Toast.LENGTH_LONG).show();
+            }
+        }
         else if(requestCode == INGREDIENT_CODE){
             if(resultCode == Activity.RESULT_OK){
                 String ing = data.getStringExtra(getResources().getString(R.string.Ingredient_Intent_Return));
@@ -137,9 +166,14 @@ public class MainActivity extends AppCompatActivity {
                 String output = "";
                 String[] splitString = split(ing);
                 for(String item : splitString){
-                    if(badForEnvironment.containsKey(item)) {
-
-                        output =  '-' + (badForEnvironment.get(item) + "\n") + output;
+                    if(!item.equals("") && !item.equals("\n")) {
+                        if (allergyList.contains(item)) {
+                            Log.e("MainActivity", item + "ASDF");
+                            output = '-' + "YOU ARE ALLERGIC TO " + item.toUpperCase() + '\n' + output;
+                        }
+                        if (badForEnvironment.containsKey(item)) {
+                            output = output + "\n+" + (badForEnvironment.get(item));
+                        }
                     }
                 }
                 if(output == ""){
