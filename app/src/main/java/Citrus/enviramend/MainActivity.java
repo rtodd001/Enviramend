@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import Citrus.enviramend.R;
 
@@ -39,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        textView = findViewById(R.id.TextView);
         //creates button scanBtn, use findVewById to get a result and we cast it by (Button)
         Button scanBtn =  findViewById(R.id.scanBtn);
         //ImageView imageView = (ImageView)findViewById(R.id.imageView);
@@ -47,17 +48,19 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, VisionActivity.class);
-                startActivityForResult(intent,INTENT_CODE);
+                startActivityForResult(intent,VISION_CODE);
             }
         });
     }
 
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if(requestCode == VISION_CODE){
             if(resultCode == Activity.RESULT_OK){
                 //figure out what gets returned
                 String text = data.getStringExtra(this.getResources().getString(R.string.VISION_RETURN));
-                textView.setText(text);
+                Toast.makeText(getApplicationContext(),"In main: " + text, Toast.LENGTH_LONG).show();
+                textView.setText("Result is " + text);
                 Intent intent = new Intent(MainActivity.this, IngredientActivity.class);
                 intent.putExtra(getResources().getString(R.string.Bundle_Start_Ingredient),text);
                 startActivityForResult(intent,INGREDIENT_CODE);

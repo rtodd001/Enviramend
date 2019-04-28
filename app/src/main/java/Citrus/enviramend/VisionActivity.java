@@ -90,7 +90,7 @@ public class VisionActivity extends AppCompatActivity {
                 detector.processImage(imageFile).addOnSuccessListener(new OnSuccessListener<FirebaseVisionText>() {
                     @Override
                     public void onSuccess(FirebaseVisionText firebaseVisionText) {
-                        Toast.makeText(getApplicationContext(), "OCR Successful", Toast.LENGTH_LONG).show();
+                        //Toast.makeText(getApplicationContext(), "OCR Successful", Toast.LENGTH_LONG).show();
                     }
                 }).addOnFailureListener(
                         new OnFailureListener() {
@@ -125,7 +125,7 @@ public class VisionActivity extends AppCompatActivity {
                 }
             }
         }
-        Toast.makeText(getApplicationContext(),resultText,Toast.LENGTH_LONG).show();
+        //Toast.makeText(getApplicationContext(),resultText,Toast.LENGTH_LONG).show();
         Intent returnIntent = new Intent();
         returnIntent.putExtra(this.getResources().getString(R.string.VISION_RETURN), resultText);
         setResult(Activity.RESULT_OK, returnIntent);
