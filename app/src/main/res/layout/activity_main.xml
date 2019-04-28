@@ -21,9 +21,9 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="5dp"
-        app:srcCompat="@mipmap/enviramend_logo" />
+        android:src="@mipmap/enviramend_logo"
+        />
 
-    />
 
     <TextView
         android:id="@+id/TextView"
@@ -47,8 +47,8 @@
 
     <ImageButton
         android:id="@+id/uploadImage"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignStart="@+id/imageView"
         android:layout_alignTop="@+id/imageView"
         android:layout_alignEnd="@+id/imageView"
@@ -63,7 +63,7 @@
         app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="@+id/TextView"
         app:layout_constraintTop_toTopOf="@+id/TextView"
-        app:srcCompat="@mipmap/uploadpic" />
+        android:src="@mipmap/uploadpic" />
 
     <ImageButton
         android:id="@+id/barcodeBtn"
@@ -79,7 +79,7 @@
         android:layout_marginBottom="512dp"
         android:background="@android:color/transparent"
         android:scaleType="fitCenter"
-        app:srcCompat="@mipmap/camerapic" />
+        android:src="@mipmap/camerapic" />
 
 
 
