@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -14,13 +15,26 @@ import android.widget.TextView;
 
 import Citrus.enviramend.R;
 
+
 public class MainActivity extends AppCompatActivity {
 
     private static final int REQUEST_PERMISSION = 10; //not too sure why this is 10 so be careful
     private static final int INTENT_CODE = 34932;
     private static final int VISION_CODE = 11111;
     private static int INGREDIENT_CODE = 1234;
-    TextView textView;
+    private TextView textView;
+
+    private String[] split(String input){
+        input = input.toLowerCase();
+        String[] output;
+        output = input.split(":,()");
+        for(int i = 0; i < output.length; i++){
+            Log.e("MainActivity", output[i]);
+        }
+        return output;
+    }
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
             if(resultCode == Activity.RESULT_OK){
                 String ing = data.getStringExtra(getResources().getString(R.string.Ingredient_Intent_Return));
                 textView.setText(ing);
+                split(ing);
             }
         }
     }

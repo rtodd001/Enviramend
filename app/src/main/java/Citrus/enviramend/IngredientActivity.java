@@ -38,7 +38,6 @@ public class IngredientActivity extends AppCompatActivity {
 
     public void APICall(String query){
         final Intent returnIntent = new Intent();
-        final Bundle returnBundle= new Bundle();
         final RequestQueue queue = Volley.newRequestQueue(this);
         String url = getResources().getString(R.string.query_url) + query + "&" + getResources().getString(R.string.api_key);
         if(url == ""){
@@ -67,9 +66,9 @@ public class IngredientActivity extends AppCompatActivity {
                                                 JSONObject food = firstFood.getJSONObject("food");
                                                 JSONObject ing = food.getJSONObject("ing");
                                                 String desc = ing.getString("desc");
-                                                Toast.makeText(IngredientActivity.this, desc, Toast.LENGTH_LONG).show();
+
                                                 returnIntent.putExtra(getResources().getString(R.string.Ingredient_Intent_Return), desc);
-                                                //returnBundle.putString(getResources().getString(R.string.Ingredient_Intent_Return), desc);
+
                                                 setResult(Activity.RESULT_OK, returnIntent);
                                                 finish();
                                             }catch (JSONException e){
