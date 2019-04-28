@@ -87,13 +87,6 @@ public class BarcodeScan extends AppCompatActivity {
     }
 
     private void startOCR() {
-        final String resultText;
-        try {
-            imageFile = FirebaseVisionImage.fromFilePath(getApplicationContext(), uri);
-        } catch (IOException e) {
-            Toast.makeText(getApplicationContext(), "Failed to get image", Toast.LENGTH_LONG).show();
-        }
-
         FirebaseVisionBarcodeDetectorOptions options =
                 new FirebaseVisionBarcodeDetectorOptions.Builder()
                         .setBarcodeFormats(FirebaseVisionBarcode.FORMAT_UPC_A)
