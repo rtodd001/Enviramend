@@ -52,4 +52,13 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0" />
 
+    <Button
+        android:id="@+id/allergy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Allergy"
+        tools:layout_editor_absoluteX="324dp"
+        tools:layout_editor_absoluteY="2dp" />
+
+
 </android.support.constraint.ConstraintLayout>
