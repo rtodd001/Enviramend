@@ -95,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
         barBtn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, BarcodeScan.class);
+                Intent intent = new Intent(MainActivity.this, BarcodeCamera.class);
                 startActivityForResult(intent,BARCODE_INTENT);
             }
         });
