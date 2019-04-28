@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Enviramend</string>
     <string name="VISION_RETURN">VISIONRETURN</string>
+    <string name="BARCODE_RETURN">BARCODERETURN</string>
     <string name="query_url">https://api.nal.usda.gov/ndb/search/?format=json&amp;q=</string>
     <string name="item_url">https://api.nal.usda.gov/ndb/V2/reports?format=json&amp;ndbno=</string>
     <string name="api_key">api_key=k5aeZWi0VlcOIPCtzGB1bbRzePGAr8PPgVKM0uok</string>
