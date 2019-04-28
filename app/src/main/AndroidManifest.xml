@@ -16,6 +16,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".BarcodeCamera"></activity>
+        <activity android:name=".Allergy"></activity>
         <activity android:name=".VisionActivity" />
         <activity android:name=".BarcodeScan" />
         <activity android:name=".IngredientActivity" />

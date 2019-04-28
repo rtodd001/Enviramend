@@ -23,7 +23,6 @@
         android:layout_marginBottom="5dp"
         app:srcCompat="@mipmap/enviramend_logo" />
 
-    />
 
     <TextView
         android:id="@+id/TextView"
@@ -81,7 +80,16 @@
         android:scaleType="fitCenter"
         app:srcCompat="@mipmap/camerapic" />
 
-
-
+    <Button
+        android:id="@+id/allergy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="4dp"
+        android:text="Allergy"
+        tools:layout_editor_absoluteX="324dp"
+        tools:layout_editor_absoluteY="2dp" />
 
 </RelativeLayout>
+
+
