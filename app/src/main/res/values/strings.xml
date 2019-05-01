@@ -11,4 +11,6 @@
     <string name="Ingredient_Intent_Return">ingredient_intent_return</string>
     <string name="Allergy_Intent_Call">allergy_intent_call</string>
     <string name="Allergy_Intent_Return">allergy_intent_return</string>
+    <string name="Save_Allergy_Set">SAVE_THE_SET</string>
+    <string name="Pref_Save">KEY_FOR_SAVING_LOADING</string>
 </resources>

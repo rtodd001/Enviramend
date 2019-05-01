@@ -1,7 +1,9 @@
 package Citrus.enviramend;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -23,6 +25,8 @@ import java.util.Vector;
 
 import Citrus.enviramend.R;
 
+import static android.icu.lang.UCharacter.JoiningGroup.HE;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -34,7 +38,8 @@ public class MainActivity extends AppCompatActivity {
     private static int INGREDIENT_CODE = 4444;
     private TextView textView;
     private Map<String, String> badForEnvironment = new HashMap<>();
-    private Set<String> allergyList = new HashSet<>();
+    public static Set<String> allergyList = new HashSet<>();
+
 
 
     private String[] split(String input){
@@ -61,7 +66,8 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        badForEnvironment.put("palm oil","Palm oil is contributing to deforestation in Indonesia and Malaysia. Clearing forests to grow oil palm trees contributes to global warming, it also leads to habitat loss in one of the most biodiverse areas of the world.");
+        loadData();
+        /*badForEnvironment.put("palm oil","Palm oil is contributing to deforestation in Indonesia and Malaysia. Clearing forests to grow oil palm trees contributes to global warming, it also leads to habitat loss in one of the most biodiverse areas of the world.");
         badForEnvironment.put("egg", "A carton of eggs have a carbon footprint of 5 pounds, and a water footprint of 2,400 liters." );
         badForEnvironment.put("eggs", "A carton of eggs have a carbon footprint of 5 pounds, and a water footprint of 2,400 liters.");
         badForEnvironment.put("lamb", "Lamb, along with beef, have the largest impact on greenhouse gas emissions.");
@@ -75,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
         badForEnvironment.put("almond", "Growing almonds requires a lot of water.");
         badForEnvironment.put("almond milk", "Growing almonds requires a lot of water.");
         badForEnvironment.put("soybeans", "In Brazil, the area of forest cleared for soybean plantations is responsible for the release of over 473 million tons of carbon dioxide.");
-        badForEnvironment.put("chocolate", "Cacao plantations are responsible for huge amounts of deforestation.");
+        badForEnvironment.put("chocolate", "Cacao plantations are responsible for huge amounts of deforestation.");*/
         //badForEnvironment.put("sugar", "According to the World Wildlife Fund, sugar cane production has caused a greater loss of biodiversity than any other crop on the planet.");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -92,22 +98,27 @@ public class MainActivity extends AppCompatActivity {
         scanBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, VisionActivity.class);
+                saveData();
+                Intent intent = new Intent(MainActivity.this, BarcodeScan.class);
                 startActivityForResult(intent,VISION_CODE);
                 //Intent intent = new Intent(MainActivity.this, BarcodeScan.class);
                 //startActivityForResult(intent,INTENT_CODE);
+                saveData();
             }
         });
         barBtn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
+                saveData();
                 Intent intent = new Intent(MainActivity.this, BarcodeCamera.class);
                 startActivityForResult(intent,BARCODE_INTENT);
+
             }
         });
         allergyBtn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
+                loadData();
                 Intent intent = new Intent(MainActivity.this, Allergy.class);
                 startActivityForResult(intent,ALLERGY_INTENT);
             }
@@ -116,10 +127,11 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        loadData();
         if(requestCode == VISION_CODE){
             if(resultCode == Activity.RESULT_OK){
                 //figure out what gets returned
-                String text = data.getStringExtra(this.getResources().getString(R.string.VISION_RETURN));
+                String text = data.getStringExtra(this.getResources().getString(R.string.BARCODE_RETURN));
                 Log.e("MainActivity", "IN VISION_INTENT");
                 //Toast.makeText(getApplicationContext(),"In main: " + text, Toast.LENGTH_LONG).show();
                 textView.setText("Result is " + text);
@@ -144,18 +156,18 @@ public class MainActivity extends AppCompatActivity {
         }
         else if(requestCode == ALLERGY_INTENT){
             if(resultCode == Activity.RESULT_OK){
-                String text = data.getStringExtra(this.getResources().getString(R.string.Allergy_Intent_Return));
                 //Toast.makeText(getApplicationContext(),"In main: " + text, Toast.LENGTH_LONG).show();
                 Log.e("MainActivity", "IN ALLERGY_INTENT");
                 //textView.setText("Result is " + text);
-                String[] textByLine = text.split("\n");
+                /*String[] textByLine = text.split("\n");
                 allergyList = new HashSet<>();
                 for(String item: textByLine){
                     allergyList.add(item.toLowerCase());
-                }
+                }*/
+                saveData();
             }
             else {
-                Toast.makeText(getApplicationContext(),"Failed to return from Barcode", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(),"Failed to return from Allergy", Toast.LENGTH_LONG).show();
             }
         }
         else if(requestCode == INGREDIENT_CODE){
@@ -171,9 +183,9 @@ public class MainActivity extends AppCompatActivity {
                             Log.e("MainActivity", item + "ASDF");
                             output = '-' + "YOU ARE ALLERGIC TO " + item.toUpperCase() + '\n' + output;
                         }
-                        if (badForEnvironment.containsKey(item)) {
+                        /*if (badForEnvironment.containsKey(item)) {
                             output = output + "\n+" + (badForEnvironment.get(item));
-                        }
+                        }*/
                     }
                 }
                 if(output == ""){
@@ -185,4 +197,48 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
+
+    //MUST KEEP THESE TWO OVERRIDES IN ORDER FOR DATA SAVING AND LOADING TO BE FUNCTIONAL
+    @Override
+    protected void onPause() {
+        super.onPause();
+        //saveData();
+    }
+    //DO NOT DELETE
+    @Override
+    protected void onResume() {
+        super.onResume();
+        loadData();
+    }
+
+    //SAVE DATA FUNCTION
+    //MAKE SURE TO UPDATE THIS EVERY TIME A NEW VARIABLE IS IMPLEMENTED INTO THE CODE
+    //FORGOT THE WEATHER AND GAVE ME A LONG HEADACHE
+    private void saveData(){
+        SharedPreferences sharedPreferences = getSharedPreferences(this.getResources().getString(R.string.Pref_Save), Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putStringSet("Allergy", allergyList);
+        editor.commit();
+        //Toast.makeText(this, "saving: " + carLL.toString(), Toast.LENGTH_LONG).show();
+        //textView.setText("Saving: " + carLL.toString() );
+    }
+    //LOAD DATA FUNCTION
+    private void loadData(){
+        SharedPreferences sharedPreferences = getSharedPreferences(this.getResources().getString(R.string.Pref_Save), Context.MODE_PRIVATE);
+        allergyList = sharedPreferences.getStringSet(this.getResources().getString(R.string.Save_Allergy_Set), allergyList);
+        /*carLL = new LatLng(sharedPreferences.getFloat("Latitude", (float) carLL.latitude),
+                sharedPreferences.getFloat("Longitude", (float) carLL.longitude));
+        carCoordinate = new double[]{carLL.latitude, carLL.longitude};
+        float temp = -1;
+        *//*float temp1 = -1;
+        temp = sharedPreferences.getFloat("Pressure", temp1);*//*
+        HE.setPressurePhone(sharedPreferences.getFloat("Pressure", temp), HE.getBEFORE());
+        HE.setPressureAir(sharedPreferences.getFloat("Weather", temp), HE.getBEFORE());
+        HE.setHumidity(sharedPreferences.getFloat("Humidity", temp), HE.getBEFORE());
+        HE.setTemperatureAir(sharedPreferences.getFloat("Temperature", temp), HE.getBEFORE());*/
+        //Toast.makeText(this, "Loading: " + carLL.toString(), Toast.LENGTH_LONG).show();
+    }
+
+
+
 }

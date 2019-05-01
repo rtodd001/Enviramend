@@ -17,20 +17,12 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-<<<<<<< HEAD
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="5dp"
-        android:src="@mipmap/enviramend_logo"
-        />
-=======
+
         android:layout_marginStart="-5dp"
         android:layout_marginTop="3dp"
         android:layout_marginEnd="5dp"
         android:layout_marginBottom="-3dp"
         app:srcCompat="@mipmap/enviramend_logo" />
->>>>>>> a49cc35f7d535cee44820b3c1bfeff7c896880ff
 
 
     <TextView
@@ -41,10 +33,10 @@
         android:layout_alignTop="@+id/imageView"
         android:layout_alignBottom="@+id/imageView"
         android:layout_alignParentEnd="true"
-        android:layout_marginStart="60dp"
-        android:layout_marginTop="549dp"
-        android:layout_marginEnd="56dp"
-        android:layout_marginBottom="73dp"
+        android:layout_marginStart="63dp"
+        android:layout_marginTop="503dp"
+        android:layout_marginEnd="53dp"
+        android:layout_marginBottom="119dp"
         android:autoText="true"
         android:fontFamily="serif"
         android:textAlignment="center"
@@ -62,26 +54,22 @@
     <ImageButton
         android:id="@+id/uploadImage"
         android:layout_width="wrap_content"
-<<<<<<< HEAD
         android:layout_height="wrap_content"
-=======
-        android:layout_height="278dp"
->>>>>>> a49cc35f7d535cee44820b3c1bfeff7c896880ff
         android:layout_alignStart="@+id/imageView"
         android:layout_alignTop="@+id/imageView"
         android:layout_alignEnd="@+id/imageView"
         android:layout_alignBottom="@+id/imageView"
         android:layout_marginStart="-21dp"
         android:layout_marginTop="-12dp"
-        android:layout_marginEnd="240dp"
+        android:layout_marginEnd="239dp"
         android:layout_marginBottom="465dp"
         android:background="@android:color/transparent"
         android:scaleType="fitCenter"
+        android:src="@mipmap/uploadpic"
         app:layout_constraintEnd_toEndOf="@+id/TextView"
         app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="@+id/TextView"
-        app:layout_constraintTop_toTopOf="@+id/TextView"
-        android:src="@mipmap/uploadpic" />
+        app:layout_constraintTop_toTopOf="@+id/TextView" />
 
     <ImageButton
         android:id="@+id/barcodeBtn"

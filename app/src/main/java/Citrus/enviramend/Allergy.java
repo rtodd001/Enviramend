@@ -10,6 +10,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.util.Set;
+
+import static Citrus.enviramend.MainActivity.allergyList;
+
 public class Allergy extends AppCompatActivity {
     TextView textView;
     Button add, back;
@@ -26,13 +30,18 @@ public class Allergy extends AppCompatActivity {
         add = findViewById(R.id.add);
         back = findViewById(R.id.back);
         editText = findViewById(R.id.editText);
+        //final Set<String> allergyList = MainActivity.getAllergyList();
+        for(String item: allergyList){
+            textView.setText(item);
+        }
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!editText.getText().toString().equals("")) {
-                    allergies = allergies + "\n" + editText.getText().toString();
+                if(!editText.getText().toString().equals("") && !allergyList.contains(editText.getText().toString().equals(""))) {
+                    //allergies = allergies + "\n" + editText.getText().toString();
+                    allergyList.add(editText.getText().toString().toLowerCase());
                     Log.e("Allergy", editText.getText().toString());
-                    textView.setText(allergies);
+                    textView.setText(editText.getText().toString().toLowerCase());
                     editText.setText("");
                 }
             }

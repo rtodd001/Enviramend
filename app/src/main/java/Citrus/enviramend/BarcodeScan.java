@@ -81,6 +81,7 @@ public class BarcodeScan extends AppCompatActivity {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+                textView.setText("Reading the barcode");
                 startOCR();
             }
         }
@@ -99,11 +100,13 @@ public class BarcodeScan extends AppCompatActivity {
                     @Override
                     public void onSuccess(List<FirebaseVisionBarcode> barcodes) {
                         //Toast.makeText(getApplicationContext(), barcodes.get(0).getRawValue(), Toast.LENGTH_LONG).show();
-                        String resultText = barcodes.get(0).getRawValue();
-                        Intent returnIntent = new Intent();
-                        returnIntent.putExtra(getApplicationContext().getResources().getString(R.string.BARCODE_RETURN), resultText);
-                        setResult(Activity.RESULT_OK, returnIntent);
-                        finish();
+                        if (!barcodes.isEmpty()) {
+                            String resultText = barcodes.get(0).getRawValue();
+                            Intent returnIntent = new Intent();
+                            returnIntent.putExtra(getApplicationContext().getResources().getString(R.string.BARCODE_RETURN), resultText);
+                            setResult(Activity.RESULT_OK, returnIntent);
+                            finish();
+                        }
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
