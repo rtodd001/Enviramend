@@ -17,46 +17,64 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
+<<<<<<< HEAD
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="5dp"
         android:src="@mipmap/enviramend_logo"
         />
+=======
+        android:layout_marginStart="-5dp"
+        android:layout_marginTop="3dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="-3dp"
+        app:srcCompat="@mipmap/enviramend_logo" />
+>>>>>>> a49cc35f7d535cee44820b3c1bfeff7c896880ff
 
 
     <TextView
         android:id="@+id/TextView"
-        android:layout_width="wrap_content"
-        android:layout_height="187dp"
+        android:layout_width="300dp"
+        android:layout_height="109dp"
         android:layout_alignStart="@+id/imageView"
         android:layout_alignTop="@+id/imageView"
         android:layout_alignBottom="@+id/imageView"
         android:layout_alignParentEnd="true"
-        android:layout_marginStart="62dp"
-        android:layout_marginTop="466dp"
-        android:layout_marginEnd="68dp"
-        android:layout_marginBottom="63dp"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="549dp"
+        android:layout_marginEnd="56dp"
+        android:layout_marginBottom="73dp"
+        android:autoText="true"
+        android:fontFamily="serif"
+        android:textAlignment="center"
+        android:textColor="#447949"
+        android:textColorHint="#021727"
+        android:textSize="20sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.224"
-    />
+        app:layout_constraintVertical_bias="0.224" />
 
     <ImageButton
         android:id="@+id/uploadImage"
         android:layout_width="wrap_content"
+<<<<<<< HEAD
         android:layout_height="wrap_content"
+=======
+        android:layout_height="278dp"
+>>>>>>> a49cc35f7d535cee44820b3c1bfeff7c896880ff
         android:layout_alignStart="@+id/imageView"
         android:layout_alignTop="@+id/imageView"
         android:layout_alignEnd="@+id/imageView"
         android:layout_alignBottom="@+id/imageView"
-        android:layout_marginStart="74dp"
-        android:layout_marginTop="120dp"
-        android:layout_marginEnd="244dp"
-        android:layout_marginBottom="518dp"
+        android:layout_marginStart="-21dp"
+        android:layout_marginTop="-12dp"
+        android:layout_marginEnd="240dp"
+        android:layout_marginBottom="465dp"
         android:background="@android:color/transparent"
         android:scaleType="fitCenter"
         app:layout_constraintEnd_toEndOf="@+id/TextView"
@@ -67,21 +85,37 @@
 
     <ImageButton
         android:id="@+id/barcodeBtn"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="wrap_content"
+        android:layout_height="275dp"
         android:layout_alignStart="@+id/imageView"
         android:layout_alignTop="@+id/imageView"
         android:layout_alignEnd="@+id/imageView"
         android:layout_alignBottom="@+id/imageView"
-        android:layout_marginStart="237dp"
-        android:layout_marginTop="113dp"
-        android:layout_marginEnd="71dp"
-        android:layout_marginBottom="512dp"
+        android:layout_marginStart="119dp"
+        android:layout_marginTop="-13dp"
+        android:layout_marginEnd="104dp"
+        android:layout_marginBottom="469dp"
         android:background="@android:color/transparent"
         android:scaleType="fitCenter"
         android:src="@mipmap/camerapic" />
 
 
-
+    <ImageButton
+        android:id="@+id/allergy"
+        android:layout_width="181dp"
+        android:layout_height="273dp"
+        android:layout_alignStart="@+id/imageView"
+        android:layout_alignTop="@+id/imageView"
+        android:layout_alignEnd="@+id/imageView"
+        android:layout_alignBottom="@+id/imageView"
+        android:layout_marginStart="253dp"
+        android:layout_marginTop="-9dp"
+        android:layout_marginEnd="-23dp"
+        android:layout_marginBottom="467dp"
+        android:background="@android:color/transparent"
+        android:scaleType="fitCenter"
+        app:srcCompat="@mipmap/allergypic" />
 
 </RelativeLayout>
+
+
